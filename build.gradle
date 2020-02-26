@@ -290,29 +290,29 @@ subprojects {
   }
 }
 
-// Aggregates all jacoco results into the root project directory
-task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
-  def javaProjects = subprojects.findAll { it.path != ':core' }
-
-  description = 'Generates an aggregate report from all subprojects'
-  dependsOn(javaProjects.test)
-
-  additionalSourceDirs = files(javaProjects.sourceSets.main.allSource.srcDirs)
-  sourceDirectories = files(javaProjects.sourceSets.main.allSource.srcDirs)
-  classDirectories =  files(javaProjects.sourceSets.main.output)
-  executionData = files(javaProjects.jacocoTestReport.executionData)
-
-  reports {
-    html.enabled = true
-    xml.enabled = true
-  }
-
-  // workaround to ignore projects that don't have any tests at all
-  onlyIf = { true }
-  doFirst {
-    executionData = files(executionData.findAll { it.exists() })
-  }
-}
+//// Aggregates all jacoco results into the root project directory
+//task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+//  def javaProjects = subprojects.findAll { it.path != ':core' }
+//
+//  description = 'Generates an aggregate report from all subprojects'
+//  dependsOn(javaProjects.test)
+//
+//  additionalSourceDirs = files(javaProjects.sourceSets.main.allSource.srcDirs)
+//  sourceDirectories = files(javaProjects.sourceSets.main.allSource.srcDirs)
+//  classDirectories =  files(javaProjects.sourceSets.main.output)
+//  executionData = files(javaProjects.jacocoTestReport.executionData)
+//
+//  reports {
+//    html.enabled = true
+//    xml.enabled = true
+//  }
+//
+//  // workaround to ignore projects that don't have any tests at all
+//  onlyIf = { true }
+//  doFirst {
+//    executionData = files(executionData.findAll { it.exists() })
+//  }
+//}
 
 task reportCoverage(dependsOn: ['jacocoRootReport', 'core:reportScoverage'])
 
@@ -385,7 +385,7 @@ project(':core') {
   println "Building project 'core' with Scala version ${versions.scala}"
 
   apply plugin: 'scala'
-  apply plugin: "org.scoverage"
+//  apply plugin: "org.scoverage"
   archivesBaseName = "kafka_${versions.baseScala}"
 
   dependencies {
@@ -419,19 +419,19 @@ project(':core') {
     testCompile libs.scalaTest
     testCompile libs.jfreechart
 
-    scoverage libs.scoveragePlugin
-    scoverage libs.scoverageRuntime
+//    scoverage libs.scoveragePlugin
+//    scoverage libs.scoverageRuntime
   }
 
   jacocoTestReport.enabled = false
-  scoverage {
-    reportDir = file("${rootProject.buildDir}/scoverage")
-    highlighting = false
-  }
-  checkScoverage {
-    minimumRate = 0.0
-  }
-  checkScoverage.shouldRunAfter('test')
+//  scoverage {
+//    reportDir = file("${rootProject.buildDir}/scoverage")
+//    highlighting = false
+//  }
+//  checkScoverage {
+//    minimumRate = 0.0
+//  }
+//  checkScoverage.shouldRunAfter('test')
 
   configurations {
     // manually excludes some unnecessary dependencies
