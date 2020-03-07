@@ -1,0 +1,12 @@
+session_name: kafka
+windows:
+  - window_name: zsh
+    layout: tiled
+    panes:
+      - shell_command:
+          - bash bin/kafka-server-start.sh config/server.properties
+      - focus: 'true'
+        shell_command:
+          - echo 'one'
+      - shell_command:
+          - echo 'two'

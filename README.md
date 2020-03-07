@@ -151,3 +151,12 @@ Apache Kafka is interested in building the community; we would welcome any thoug
 
 To contribute follow the instructions here:
  * http://kafka.apache.org/contributing.html
+
+# shortcut
+```shell script
+bash bin/kafka-server-start.sh config/server.properties
+bash bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+bash bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+bash bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test
+```
